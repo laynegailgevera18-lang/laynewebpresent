@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layne Gail's Homepage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ff66b2;
+            --pink-2: #ff92c9;
+            --bg: #fff8fb;
+            --max-width: 980px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: auto;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, var(--bg) 0%, #fff 100%);
+            color: var(--pink);
+            font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+        }
+
+        .card {
+            width: 200%;
+            max-width: var(--max-width);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 18px;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.08);
+            /* Increased horizontal padding to make space for the larger GIFs on the side */
+            padding: 36px 60px;
+            text-align: center;
+            border: 10px solid rgba(255, 102, 178, 0.1);
+            position: relative; /* Container for absolute GIFs */
+            overflow: hidden;
+        }
+
+        h1 {
+            margin: 0 0 14px;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--pink);
+        }
+
+        .subtitle {
+            margin: 0 0 18px;
+            font-weight: 600;
+            color: var(--pink-2);
+        }
+
+        /* Generic anchor tag styling (won't affect link-buttons) */
+        a {
+            color: var(--pink-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+            a:hover {
+                text-decoration: underline;
+                color: var(--pink);
+            }
+
+        .avatar-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 18px 0 12px;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid rgba(255, 102, 178, 0.12);
+            box-shadow: 0 8px 30px rgba(255, 102, 178, 0.08);
+        }
+
+        .bio {
+            margin-top: 12px;
+            /* Darker abstract text color as requested */
+            color: #333;
+            font-size: inherit;
+            line-height: 1.5;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: justify;
+            text-indent: 40px;
+            font-weight: 500;
+        }
+        .link-button {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 0; /* Margin is handled by parent's flexbox gap */
+            border-radius: 999px;
+            background-color: var(--pink);
+            color: #fff !important; /* White text for contrast */
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 15px rgba(255, 102, 178, 0.4);
+            border: none;
+            min-width: 120px;
+            text-align: center;
+        }
+
+            .link-button:hover {
+                background-color: var(--pink-2);
+                box-shadow: 0 6px 20px rgba(255, 102, 178, 0.6);
+                transform: translateY(-2px);
+                text-decoration: none;
+            }
+
+        .primary-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 2px solid rgba(255, 102, 178, 0.2);
+            background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.25));
+            color: var(--pink);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        /* GIF Positioning: Now absolute inside the card, centered vertically */
+        .side-gif {
+            position: absolute;
+            width: 200px; /* Increased size as requested */
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            top: 50%; /* Center vertically */
+            transform: translateY(-154%); /* Adjust for element height */
+        }
+
+            .side-gif.left {
+                left: 10px; /* Positioned right against the internal edge of the card */
+            }
+
+            .side-gif.right {
+                right: 10px; /* Positioned right against the internal edge of the card */
+                transform: translateY(-154%) scaleX(-1); /* Apply both transforms */
+            }
+
+        .footer-note {
+            margin-top: 22px;
+            font-size: 13px;
+            color: var(--pink-2);
+            opacity: 0.9;
+        }
+
+        .link-section {
+            margin-top: 30px; /* Increased top margin */
+            display: flex;
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+            justify-content: center;
+            gap: 15px; /* Spacing between the buttons */
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            /* Removing old properties that are now handled by flex/buttons */
+            color: inherit;
+            font-size: inherit;
+            line-height: normal;
+            text-align: center;
+        }
+
+        /* Extra space to ensure page scrolling is possible */
+        .scroll-spacer {
+            height: 50vh;
+            width: 100%;
+        }
+
+        @media (max-width: 640px) {
+            .avatar {
+                width: 120px;
+                height: 120px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <article class="card" role="main" aria-labelledby="main-title">
+            <!-- GIFs are inside the card, positioned absolutely on the sides, and centered vertically -->
+            <img class="side-gif left" src="name.gif" alt="Decorative left GIF" />
+            <img class="side-gif right" src="symbol.gif" alt="Decorative right GIF" />
+
+            <h1 id="main-title">Comprehensive Study on Statistics: Concepts, Formulas, and Applications</h1>
+            <p class="subtitle">Author: Layne Gail Gevera </p>
+            <p class="subtitle">Email: laynegailgevera29@gmail.com </p>
+
+            <div class="avatar-wrap">
+                <!-- Placeholder image for the avatar -->
+                <img class="avatar" src="layne.jpg" alt="Photo of Layne Gail Gevera" />
+            </div>
+
+            <p class="bio">
+                Statistics, as a central branch of mathematics, provides essential tools for interpreting data, informing decisions, and understanding complex real-world patterns. My aim is to guide college students in appreciating both the analytical power and the practical relevance of statistical reasoning. In modern instruction, a key challenge lies in using digital platforms to enhance engagement and support meaningful, inquiry-driven learning.
+            </p>
+
+            <p class="bio">
+                This website supports that goal by presenting statistics through clear conceptual explanations, interactive activities, and applications grounded in real data. Its structure encourages students to learn through exploration, analysis, and reflection, enabling them to internalize ideas through firsthand investigation.
+            </p>
+
+            <p class="bio">
+                Through active engagement and independent problem-solving, learners strengthen their quantitative reasoning and develop the statistical literacy necessary for academic and professional success. These skills not only deepen their understanding of data but also equip them to make informed, evidence-based decisions—an essential competency for future leadership and responsible action in a data-driven world.
+            </p>
+
+            <div class="link-section">
+                <a href="https://www.hagerstowncc.edu/sites/default/files/documents/13-statistics-packet.pdf" class="link-button">Website Links</a>
+                <a href="presentation.pdf" class="link-button">Slides</a>
+                <a href="https://youtu.be/PTK_TiaMxm8?si=KJytPSw_S1J98xUe" class="link-button">Audio</a>
+                <a href="question.pdf" class="link-button">Quiz Questions</a>
+                <a href="article.pdf" class="link-button">Articles</a>
+            </div>
+        </article>
+    </main>
+
+    <!-- Spacer to ensure the page is scrollable for testing purposes -->
+    <div class="scroll-spacer"></div>
+</body>
+</html>
